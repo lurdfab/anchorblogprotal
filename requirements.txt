@@ -1,0 +1,12 @@
+django
+pillow
+djangorestframework
+django-filter
+psycopg2
+# djmail
+# django-jinja
+python-decouple
+
+
+
+#pip3 install -r requirements.txt (run command to install these libraries)
