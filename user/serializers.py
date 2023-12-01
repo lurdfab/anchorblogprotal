@@ -9,6 +9,8 @@ from posts.models import *
 from posts.serializers import *
 from comment_reply.models import *
 from comment_reply.serializers import *
+from blog.models import *
+from blog.serializers import *
 
 class RegisterSerializer(serializers.ModelSerializer):
     #reason we do these below even after listing the fields in the class meta is to enforce certain parameters for the fields, we can do without it 
@@ -60,10 +62,12 @@ class UserSerializer(serializers.ModelSerializer):
     post_likes = serializers.SerializerMethodField()
     comment_likes = serializers.SerializerMethodField()
     reply_likes = serializers.SerializerMethodField()
+    video_likes = serializers.SerializerMethodField()
+    music_likes = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'post_likes', 'comment_likes', 'reply_likes']
+        fields = ['id', 'username', 'post_likes', 'comment_likes', 'reply_likes', 'video_likes', 'music_likes']
 
     
     def get_post_likes(self, obj):
@@ -77,6 +81,15 @@ class UserSerializer(serializers.ModelSerializer):
     def get_reply_likes(self, obj):
         replies = services.get_liked(obj.id, Reply)
         return ReplyLikesSerializer(replies, many=True).data
+    
+    def get_video_likes(self, obj):
+        video = services.get_liked(obj.id, Video)
+        return VideoLikesSerializer(video, many=True).data
+    
+    def get_music_likes(self, obj):
+        music = services.get_liked(obj.id, Music)
+        return MusicLikesSerializer(music, many=True).data
+    
 
 
 class UserProfileSerializer(serializers.ModelSerializer):

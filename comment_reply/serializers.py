@@ -26,8 +26,27 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ("post", "comment", "commented_at", "comment_image", "commented_by", "replies")
 
+
 class CommentLikesSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Comment
         fields = ['id', 'user',]
+
+class MusicCommentSerializer(serializers.ModelSerializer):
+    commented_by = serializers.ReadOnlyField(source="user.username")
+    replies = ReplySerializer(many=True, read_only=True)
+    
+
+    class Meta:
+        model = Comment
+        fields = ("music", "comment", "commented_at", "comment_image", "commented_by", "replies")
+
+class MusicReplySerializer(serializers.ModelSerializer):
+    replied_by = serializers.ReadOnlyField(source="user.username")
+
+    class Meta:
+        model = Reply
+        fields = ( "comment", "reply", "reply_image", "replied_by")
+
+
