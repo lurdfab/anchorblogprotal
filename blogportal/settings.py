@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     #project apps
     'user',
     'posts',
-    'comment_reply',
-    'blog',
     'likes',
 
     
