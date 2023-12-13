@@ -29,7 +29,7 @@ class PostViewset(LikedResourceMixin, viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    def get_permissions(self): #this is for one model
+    def get_permissions(self): 
 
         if self.action == "like":
             self.permission_class = (permissions.IsAuthenticated,)
@@ -82,7 +82,7 @@ class PostCommentViewSet(LikedResourceMixin, viewsets.ModelViewSet):
 
     def create(self, request, post_id=None):
         data = copy.deepcopy(request.data)
-        # data = request.data
+        
       
 
         if not request.user.is_authenticated:
